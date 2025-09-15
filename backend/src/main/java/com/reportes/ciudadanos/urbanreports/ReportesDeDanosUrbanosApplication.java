@@ -1,0 +1,13 @@
+package com.reportes.ciudadanos.urbanreports;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ReportesDeDanosUrbanosApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ReportesDeDanosUrbanosApplication.class, args);
+	}
+
+}
