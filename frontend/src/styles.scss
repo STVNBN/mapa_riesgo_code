@@ -1,0 +1,202 @@
+/* Tema global */
+@use './styles/central-theme';
+
+/* Opción A: si NO tienes leaflet.css en angular.json, descomenta: */
+@use 'leaflet/dist/leaflet.css' ;
+
+
+/* Fuente moderna */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+:root { --lumo-font-family: "Inter","Roboto",system-ui,-apple-system,"Segoe UI",Arial,sans-serif; }
+
+html, body { height: 100%; width: 100%; font-family: var(--lumo-font-family); }
+button, input, select, textarea { font-family: inherit; }
+
+/* === Fondo gris suave general === */
+body {
+  background-color: #f2f3f5; /* gris claro */
+  color: var(--lumo-body-text-color);
+  font-family: var(--lumo-font-family);
+}
+
+/* === Realce de las tarjetas === */
+.card {
+  background-color: #fff;
+  border-radius: var(--lumo-border-radius);
+  box-shadow: var(--lumo-box-shadow);
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+/* === Suaviza los inputs para que resalten sobre el fondo === */
+input, select, textarea {
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--lumo-primary-color);
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+}
+
+/* === Estilo refinado para campos de formulario === */
+input[type="text"],
+input[type="number"],
+input[type="file"],
+select,
+textarea {
+  background-color: #ffffff;
+  border: 1px solid #d0d5dd; /* gris atenuado */
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  color: #1e293b;
+  width: 100%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9ca3af; /* gris suave */
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #1a73e8; /* azul primario */
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
+  background-color: #fefefe;
+}
+
+/* === Botones unificados === */
+button {
+  font-family: var(--lumo-font-family);
+  border-radius: 9999px;
+  padding: 8px 18px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+button.btn.primary {
+  background-color: #1a73e8; /* Azul moderno */
+  color: #ffffff; /* Texto blanco visible */
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+  transition: background-color 0.25s ease, transform 0.1s ease;
+}
+
+button.btn.primary:hover {
+  background-color: #1557b0; /* azul más oscuro al pasar el mouse */
+  transform: translateY(-1px);
+}
+
+button.btn.primary:active {
+  background-color: #0f4ea8; /* tono más fuerte al presionar */
+  transform: translateY(1px);
+}
+
+button.btn.outline {
+  border: 1px solid #d0d5dd;
+  background-color: white;
+  color: #1e293b;
+}
+
+button.btn.outline:hover {
+  background-color: #6077a7;
+}
+
+/* === Campos de entrada con gris más notorio === */
+input[type="text"],
+input[type="number"],
+input[type="file"],
+select,
+textarea {
+  background-color: #f1f3f6; /* gris claro visible */
+  border: 1px solid #b0b8c5; /* gris intermedio, más definido */
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  color: #1e293b;
+  width: 100%;
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+/* Estado visible por defecto */
+input,
+select,
+textarea {
+  background-color: #f1f3f6;
+  border-color: #b0b8c5;
+}
+
+/* Estado de foco (cuando el usuario escribe) */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #0f172a; /* gris oscuro / casi negro */
+  background-color: #ffffff; /* pasa a blanco puro al editar */
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.15); /* halo gris oscuro sutil */
+  color: #111827;
+}
+
+/* Placeholders suaves */
+input::placeholder,
+textarea::placeholder {
+  color: #868e96;
+}
+
+/* Campo de archivo (file input) */
+input[type="file"] {
+  border: 1px dashed #b0b8c5;
+  background-color: #f1f3f6;
+  cursor: pointer;
+}
+
+input[type="file"]:focus {
+  border-color: #0f172a;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.15);
+}
+
+/* Botón base: evita forma circular automática */
+.btn {
+  border-radius: 10px;           /* evita círculo */
+  padding: 10px 18px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fuerza colores del botón primario (legibles SIEMPRE) */
+button.btn.primary,
+.actions-row .btn.primary {
+  background: #1a73e8 !important;   /* azul visible */
+  color: #ffffff !important;         /* texto blanco */
+  border: none !important;
+  box-shadow: 0 6px 14px rgba(26,115,232,.30);
+  opacity: 1 !important;
+}
+
+/* Hover/Active */
+button.btn.primary:hover,
+.actions-row .btn.primary:hover {
+  background: #1557b0 !important;
+}
+
+button.btn.primary:active,
+.actions-row .btn.primary:active {
+  background: #0f4ea8 !important;
+}
+
+/* Si tienes un botón que sí debe ser redondo, usa esta clase explícita */
+.btn.circle { width: 44px; height: 44px; border-radius: 50%; padding: 0; }

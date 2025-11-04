@@ -1,0 +1,102 @@
+<!-- envolvente general (fondo gris claro) -->
+<div class="app-top">
+
+  <!-- Topbar translúcida -->
+  <header class="appbar">
+    <div class="brand">
+      <span class="dot"></span>
+      <h1>Reportes Urbanos</h1>
+    </div>
+
+<nav class="nav" aria-label="Navegación principal">
+  <button class="nav-btn" type="button" routerLink="/">Inicio</button>
+  <button class="nav-btn" type="button">GR</button>
+  <button class="nav-btn" type="button" routerLink="/ver-reportes">VR</button>
+</nav>
+
+
+    <div class="actions">
+      <button class="nav-btn" type="button" (click)="logout()">Salir</button>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <main class="container">
+    <p class="subtitle">Genera y envía reportes con ubicación geográfica</p>
+
+    <section class="card sheet">
+      <form class="form-grid" (ngSubmit)="guardar()" #f="ngForm">
+
+        <div class="field">
+          <label for="tipo">Tipo de reporte</label>
+          <select id="tipo" class="input"
+                  name="tipoDeReporte" [(ngModel)]="model.tipoDeReporte" required>
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value="Bache">Bache</option>
+            <option value="Alcantarillado">Alcantarillado</option>
+            <option value="Alumbrado">Alumbrado</option>
+            <option value="Residuos">Residuos</option>
+          </select>
+        </div>
+
+        <div class="field span-2">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" class="input" rows="4"
+                    name="descripcion" [(ngModel)]="model.descripcion" required
+                    placeholder="Describe el problema..."></textarea>
+        </div>
+
+        <div class="field span-2">
+          <label for="direccion">Dirección</label>
+          <input id="direccion" class="input"
+                 name="direccion" [(ngModel)]="model.direccion"
+                 placeholder="Ej. Col. Escalón, Calle X #123" />
+        </div>
+
+        <div class="field span-2">
+          <label for="telefono">Número de teléfono</label>
+          <input id="telefono" class="input" type="text"
+                 name="telefono" [(ngModel)]="model.telefono"
+                 placeholder="Ej. 77778888"
+                 pattern="[0-9]{8}" maxlength="8" required
+                 (input)="onTelefonoInput($event)"
+ />
+        </div>
+
+        <div class="field span-2">
+          <label>Mapa</label>
+          <div id="map" class="map"></div>
+
+          <div class="coords">
+            <div class="chip">
+              <span class="chip-label">Lat</span>
+              <input class="input sm" [value]="model.latitud" readonly />
+            </div>
+            <div class="chip">
+              <span class="chip-label">Lng</span>
+              <input class="input sm" [value]="model.longitud" readonly />
+            </div>
+            <span class="muted" *ngIf="coordenadas">Último punto: {{ coordenadas }}</span>
+          </div>
+        </div>
+
+        <div class="field span-2">
+          <label for="foto">Foto (opcional)</label>
+          <div class="file-row">
+            <input id="foto" type="file" class="input file" accept="image/*" (change)="onFile($event)" />
+            <button type="button" class="btn ghost" (click)="limpiarFoto()">Quitar</button>
+            <span class="muted" *ngIf="foto">{{ foto.name }}</span>
+          </div>
+        </div>
+
+        <div class="actions-row span-2">
+          <button type="button" class="btn outline" (click)="centrarEnMiUbicacion()">Mi ubicación</button>
+          <button type="submit" class="btn primary" [disabled]="f.invalid || saving">
+            {{ saving ? 'Guardando...' : 'Guardar' }}
+          </button>
+        </div>
+
+      </form>
+    </section>
+  </main>
+</div>

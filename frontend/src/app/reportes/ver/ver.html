@@ -1,0 +1,60 @@
+<div class="ver-container">
+  <header class="header">
+    <h1>📋 Reportes Urbanos</h1>
+    <nav class="nav-buttons">
+      <button routerLink="/" class="nav-btn">Inicio</button>
+      <button routerLink="/generar-reporte" class="nav-btn">GR</button>
+      <button routerLink="/ver-reportes" class="nav-btn active">VR</button>
+    </nav>
+  </header>
+
+  <section class="card">
+    <h2 class="section-title">Lista de reportes registrados</h2>
+
+    <div *ngIf="cargando" class="loading">Cargando reportes...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="table-container" *ngIf="!cargando && !error">
+      <table class="table" *ngIf="reportes?.length; else sinDatos">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Teléfono</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+            <th>Dirección</th>
+            <th>Coordenadas</th>
+            <th>Foto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of reportes">
+            <td data-label="ID">{{ r.id }}</td>
+            <td data-label="Teléfono">{{ r.telefono || '-' }}</td>
+            <td data-label="Tipo"><span class="chip">{{ r.tipoDeReporte }}</span></td>
+            <td data-label="Descripción">{{ r.descripcion }}</td>
+            <td data-label="Dirección">{{ r.direccion }}</td>
+            <td data-label="Coordenadas">
+              <code>{{ r.latitud }}, {{ r.longitud }}</code>
+            </td>
+            <td data-label="Foto" class="foto-cell">
+              <img
+                *ngIf="r.id"
+                [src]="'http://localhost:8080/api/reportes/' + r.id + '/foto'"
+                alt="Foto del reporte"
+                width="150"
+                height="150"
+                (error)="handleImgError($event)"
+              />
+              <span *ngIf="!r.id" class="muted">—</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #sinDatos>
+        <div class="empty">No hay reportes cargados.</div>
+      </ng-template>
+    </div>
+  </section>
+</div>
