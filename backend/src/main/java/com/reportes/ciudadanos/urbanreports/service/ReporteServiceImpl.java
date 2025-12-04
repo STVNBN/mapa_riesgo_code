@@ -2,6 +2,7 @@ package com.reportes.ciudadanos.urbanreports.service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional; // mejora opara obtener reporte por ID //JF
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,7 +83,8 @@ public class ReporteServiceImpl implements ReporteService {
                         r.getDescripcion(),
                         r.getDireccion(),
                         r.getLatitud(),
-                        r.getLongitud()
+                        r.getLongitud(),
+                        r.getEstado() // nuevo campo estado /JF
                 ))
                 .toList();
     }
@@ -94,4 +96,45 @@ public class ReporteServiceImpl implements ReporteService {
                 .map(Reporte::getFoto)
                 .orElse(null);
     }
+
+    // Mejora: actualizar estado del reporte //JF
+    @Override
+    @Transactional
+    public ReporteResponse actualizarEstado(Long id, String estado) {
+        Reporte reporte = reporteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reporte no encontrado"));
+
+        reporte.setEstado(estado);
+        Reporte guardado = reporteRepository.save(reporte);
+
+        return new ReporteResponse(
+                guardado.getId(),
+                (guardado.getTelefono() != null ? guardado.getTelefono()
+                        : (guardado.getUsuario() != null ? guardado.getUsuario().getTelefono() : null)),
+                guardado.getTipoDeReporte(),
+                guardado.getDescripcion(),
+                guardado.getDireccion(),
+                guardado.getLatitud(),
+                guardado.getLongitud(),
+                guardado.getEstado()
+        );
+    }
+  // mejora para "Ver estado de mi reporte" por ID /JF
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<ReporteResponse> obtenerPorId(Long id) {
+        return reporteRepository.findById(id)
+                .map(r -> new ReporteResponse(
+                        r.getId(),
+                        (r.getTelefono() != null ? r.getTelefono()
+                                : (r.getUsuario() != null ? r.getUsuario().getTelefono() : null)),
+                        r.getTipoDeReporte(),
+                        r.getDescripcion(),
+                        r.getDireccion(),
+                        r.getLatitud(),
+                        r.getLongitud(),
+                        r.getEstado()
+                ));
+    }
+
 }

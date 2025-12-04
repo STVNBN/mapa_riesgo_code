@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping; // mejora // JF
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +53,8 @@ public class ReporteController {
                 r.getDescripcion(),
                 r.getDireccion(),
                 r.getLatitud(),
-                r.getLongitud()
+                r.getLongitud(),
+                r.getEstado() // nuevo campo estado /JF
         );
     }
 
@@ -61,7 +63,25 @@ public class ReporteController {
         return reporteService.listar();
     }
 
-    // ✅ NUEVO: sirve las imágenes guardadas en bytea
+  // mejora: obtener un reporte por ID (para "Ver estado de mi reporte") //JF
+    @GetMapping("/{id}")
+    public ResponseEntity<ReporteResponse> obtenerPorId(@PathVariable Long id) {
+        return reporteService.obtenerPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
+    // Mejora: actualizar estado del reporte //JF
+    @PatchMapping("/{id}/estado")
+    public ReporteResponse actualizarEstado(
+            @PathVariable Long id,
+            @RequestParam String estado
+    ) {
+        return reporteService.actualizarEstado(id, estado);
+    }
+
+    //  NUEVO: sirve las imágenes guardadas en bytea
     @GetMapping("/{id}/foto")
     public ResponseEntity<byte[]> obtenerFoto(@PathVariable("id") Long id) {
         byte[] foto = reporteService.obtenerFoto(id);

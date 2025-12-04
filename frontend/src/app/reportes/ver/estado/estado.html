@@ -1,0 +1,55 @@
+<div class="estado-container">
+
+  <!-- Encabezado + botón ir a inicio -->
+  <div class="titulo-row">
+    <h1 class="titulo">
+      🔍 Consultar estado de mi reporte
+    </h1>
+    <button routerLink="/" class="nav-btn">Ir a Inicio</button>
+  </div>
+
+  <div class="card">
+
+    <label for="id" class="label-id">
+      Ingrese el número de ID de tu reporte:
+    </label>
+
+    <input
+      id="id"
+      type="number"
+      [(ngModel)]="idReporte"
+      placeholder="Ejemplo: 25"
+      class="input-id"
+    />
+
+    <button (click)="buscarEstado()" class="btn-buscar">
+      Buscar
+    </button>
+
+    <div *ngIf="cargando" class="loading">Buscando...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div *ngIf="resultado" class="resultado">
+      <h2>Reporte #{{ resultado.id }}</h2>
+      <p><strong>Tipo:</strong> {{ resultado.tipoDeReporte }}</p>
+      <p><strong>Descripción:</strong> {{ resultado.descripcion }}</p>
+      <p><strong>Dirección:</strong> {{ resultado.direccion }}</p>
+
+      <div class="estado-box">
+  <div class="estado-linea">
+    <span class="icono-estado">
+      {{ obtenerIconoEstado(resultado.estado) }}
+    </span>
+
+    <span [ngClass]="obtenerClaseEstado(resultado.estado)">
+      {{ formatearEstado(resultado.estado) }}
+    </span>
+  </div>
+
+  <p class="mensaje-estado">
+    {{ obtenerMensajeEstado(resultado.estado) }}
+  </p>
+</div>
+
+  </div>
+</div>

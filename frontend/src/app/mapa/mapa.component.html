@@ -10,8 +10,9 @@
 
 <nav class="nav" aria-label="Navegación principal">
   <button class="nav-btn" type="button" routerLink="/">Inicio</button>
-  <button class="nav-btn" type="button">GR</button>
-  <button class="nav-btn" type="button" routerLink="/ver-reportes">VR</button>
+  <button class="nav-btn" type="button" routerLink="/estado-reporte">Consultar mi Reporte</button> <!-- agrege boton para consultar reporte //JF -->
+  <button class="nav-btn" type="button">Generar un Reporte</button> <!-- cambie de GR a Generar un Reporte //JF -->
+  <button class="nav-btn" type="button" routerLink="/ver-reportes">Ver Reportes</button><!-- cambie de VR a Ver Reportes  //JF -->
 </nav>
 
 
@@ -36,6 +37,7 @@
             <option value="Alcantarillado">Alcantarillado</option>
             <option value="Alumbrado">Alumbrado</option>
             <option value="Residuos">Residuos</option>
+            <option value="Otros">Otros</option>
           </select>
         </div>
 
@@ -50,17 +52,16 @@
           <label for="direccion">Dirección</label>
           <input id="direccion" class="input"
                  name="direccion" [(ngModel)]="model.direccion"
-                 placeholder="Ej. Col. Escalón, Calle X #123" />
+                 placeholder="Ejemplo: Col. Escalón, Calle X #123" />
         </div>
 
         <div class="field span-2">
           <label for="telefono">Número de teléfono</label>
           <input id="telefono" class="input" type="text"
                  name="telefono" [(ngModel)]="model.telefono"
-                 placeholder="Ej. 77778888"
+                 placeholder="Ejemplo: 12345678"
                  pattern="[0-9]{8}" maxlength="8" required
-                 (input)="onTelefonoInput($event)"
- />
+                 (input)="onTelefonoInput($event)" />
         </div>
 
         <div class="field span-2">

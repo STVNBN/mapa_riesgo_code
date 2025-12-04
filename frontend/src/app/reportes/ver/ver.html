@@ -24,29 +24,59 @@
             <th>Descripción</th>
             <th>Dirección</th>
             <th>Coordenadas</th>
-            <th>Foto</th>
+            <th>Foto / Estado</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let r of reportes">
             <td data-label="ID">{{ r.id }}</td>
             <td data-label="Teléfono">{{ r.telefono || '-' }}</td>
-            <td data-label="Tipo"><span class="chip">{{ r.tipoDeReporte }}</span></td>
+            <td data-label="Tipo">
+              <span class="chip">{{ r.tipoDeReporte }}</span>
+            </td>
             <td data-label="Descripción">{{ r.descripcion }}</td>
             <td data-label="Dirección">{{ r.direccion }}</td>
             <td data-label="Coordenadas">
               <code>{{ r.latitud }}, {{ r.longitud }}</code>
             </td>
+
+            <!-- Columna de foto + estado + botones -->
             <td data-label="Foto" class="foto-cell">
+              <!-- Foto -->
               <img
                 *ngIf="r.id"
                 [src]="'http://localhost:8080/api/reportes/' + r.id + '/foto'"
                 alt="Foto del reporte"
                 width="150"
                 height="150"
+                class="img-thumb"
                 (error)="handleImgError($event)"
               />
               <span *ngIf="!r.id" class="muted">—</span>
+
+              <!-- Estado + botones -->
+              <div class="estado-botones">
+                <!-- pill del estado -->
+                <span [ngClass]="estadoClase(r.estado)">
+                  {{ etiquetaEstado(r.estado) }}
+                </span>
+
+                <!-- botones para cambiar estado -->
+                <div class="botones-estado-acciones">
+                  <button type="button" (click)="cambiarEstado(r, 'RECIBIDO')">
+                    Recibido
+                  </button>
+                  <button type="button" (click)="cambiarEstado(r, 'PENDIENTE')">
+                    Pendiente de autorización
+                  </button>
+                  <button type="button" (click)="cambiarEstado(r, 'EJECUCION')">
+                    En ejecución
+                  </button>
+                  <button type="button" (click)="cambiarEstado(r, 'FINALIZADO')">
+                    Finalizado
+                  </button>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -58,3 +88,4 @@
     </div>
   </section>
 </div>
+

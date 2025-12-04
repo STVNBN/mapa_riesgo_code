@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -22,4 +22,16 @@ export class ReportesService {
   getAll(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl);
   }
+
+    // Actualizacion: actualizar estado de un reporte / JF
+  actualizarEstado(id: number, estado: string): Observable<any> {
+    const params = new HttpParams().set('estado', estado);
+    return this.http.patch<any>(`${this.baseUrl}/${id}/estado`, null, { params });
+  }
+
+  // mejora: obtener un reporte por ID (para "ver estado de mi reporte") //JF
+getById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
+  }
+
 }

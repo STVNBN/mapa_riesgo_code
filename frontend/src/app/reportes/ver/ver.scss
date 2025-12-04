@@ -227,3 +227,78 @@
   box-shadow: 0 0 3px rgba(0,0,0,0.2);
   display: inline-block;
 }
+
+/* ===== ESTADO DEL REPORTE (fila debajo) ===== */
+
+.fila-estado {
+  background-color: #f9fafb;
+}
+
+.estado-botones {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.25rem;
+  flex-wrap: wrap;
+}
+
+/* Pill del estado */
+.estado {
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid #d1d5db;
+}
+
+/* Colores por estado */
+.estado-recibido {
+  background-color: #e5e7eb; /* gris claro */
+  color: #374151;
+}
+
+.estado-pendiente {
+  background-color: #fef3c7; /* amarillo claro */
+  color: #92400e;
+}
+
+.estado-ejecucion {
+  background-color: #d1fae5; /* verde claro */
+  color: #065f46;
+}
+
+.estado-finalizado {
+  background-color: #dbeafe; /* azul claro */
+  color: #1d4ed8;
+}
+
+/* Botones de acciones de estado */
+.botones-estado-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.botones-estado-acciones button {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.botones-estado-acciones button:hover {
+  background-color: #eef2ff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Responsivo: apilar mejor la fila de estado en móviles */
+@media (max-width: 900px) {
+  .estado-botones {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

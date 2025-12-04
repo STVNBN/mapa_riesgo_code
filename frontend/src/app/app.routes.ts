@@ -21,6 +21,15 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./reportes/ver/ver.component').then(v => v.VerComponent)
   },
+
+// mejora: Consultar estado del reporte (público, sin authGuard) //JF
+  {
+    path: 'estado-reporte',
+    loadComponent: () =>
+      import('./reportes/ver/estado/estado.component')
+        .then(m => m.EstadoReporteComponent)
+  },
+
   // Fallback
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

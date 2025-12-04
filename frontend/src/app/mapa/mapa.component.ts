@@ -19,7 +19,7 @@ export class MapaComponent implements AfterViewInit {
 
   // Modelo que mapea 1:1 con el backend
   model = {
-    telefono: '73550928',
+    telefono: '',
     tipoDeReporte: '',
     descripcion: '',
     direccion: '',

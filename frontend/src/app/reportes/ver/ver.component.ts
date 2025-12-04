@@ -42,4 +42,46 @@ export class VerComponent implements OnInit {
   handleImgError(event: any): void {
     event.target.style.display = 'none';
   }
+
+// mejora: llamar al backend para cambiar estado / JF
+  cambiarEstado(reporte: any, estado: string): void {
+    this.api.actualizarEstado(reporte.id, estado).subscribe({
+      next: (actualizado) => {
+        // Actualizamos solo ese reporte en memoria
+        reporte.estado = actualizado.estado;
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Error al actualizar el estado del reporte');
+      },
+    });
+  }
+
+  // mejora: clase CSS según el estado / JF
+  estadoClase(estado: string): string {
+    switch (estado) {
+      case 'PENDIENTE':
+        return 'estado estado-pendiente';
+      case 'EJECUCION':
+        return 'estado estado-ejecucion';
+      case 'FINALIZADO':
+        return 'estado estado-finalizado';
+      default:
+        return 'estado estado-recibido';
+    }
+  }
+
+  // mejora: texto amigable según el estado / JF
+  etiquetaEstado(estado: string): string {
+    switch (estado) {
+      case 'PENDIENTE':
+        return 'Pendiente de autorización';
+      case 'EJECUCION':
+        return 'En ejecución';
+      case 'FINALIZADO':
+        return 'Finalizado';
+      default:
+        return 'Recibido';
+    }
+  }
 }

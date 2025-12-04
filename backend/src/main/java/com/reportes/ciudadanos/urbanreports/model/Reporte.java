@@ -49,6 +49,10 @@ public class Reporte {
     @Column(name = "longitud", length = 100, nullable = true)
     private String longitud;
 
+     // mejora: estado del reporte //JF
+    @Column(name = "estado", length = 30, nullable = false)
+    private String estado = "RECIBIDO"; // valor por defecto al crear
+
     // Almacén binario en PostgreSQL (bytea). Evita OID/LOB.
     @JsonIgnore // por si accidentalmente serializas la entidad
     @Column(name = "foto", columnDefinition = "bytea", nullable = true)
@@ -81,6 +85,10 @@ public class Reporte {
 
     public String getLongitud() { return longitud; }
     public void setLongitud(String longitud) { this.longitud = longitud; }
+
+    // mejora: getters/setters de estado // JF
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
 
     public byte[] getFoto() { return foto; }
     public void setFoto(byte[] foto) { this.foto = foto; }
