@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RouterLink, RouterLinkActive } from '@angular/router'; // 👈 importa
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReportesService } from '../reportes.service';
 
 @Component({
   selector: 'app-ver',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],          // 👈 agrega
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './ver.html',
+  styleUrls: ['./ver.scss']   // 👈 AQUÍ enlazamos los estilos
 })
 export class VerComponent implements OnInit {
   reportes: any[] = [];
@@ -43,11 +44,10 @@ export class VerComponent implements OnInit {
     event.target.style.display = 'none';
   }
 
-// mejora: llamar al backend para cambiar estado / JF
+  // mejora: llamar al backend para cambiar estado / JF
   cambiarEstado(reporte: any, estado: string): void {
     this.api.actualizarEstado(reporte.id, estado).subscribe({
       next: (actualizado) => {
-        // Actualizamos solo ese reporte en memoria
         reporte.estado = actualizado.estado;
       },
       error: (err) => {
