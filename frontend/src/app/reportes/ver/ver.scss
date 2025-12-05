@@ -6,83 +6,122 @@
   --brand: #2563eb;
 }
 
-/* ===== CONTENEDOR PRINCIPAL ===== */
-.ver-container {
-  background: var(--bg);
+/* ===== LAYOUT GENERAL ===== */
+.ver-page {
   min-height: 100vh;
-  padding: 1.5rem;
-  font-family: "Inter", "Roboto", system-ui, sans-serif;
+  background: var(--bg);
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   color: var(--text);
+  padding: 1.25rem;
 }
 
-/* ===== CABECERA ===== */
-.header {
-  display: flex;
-  justify-content: space-between;
+/* ===== TOPBAR ===== */
+.ver-appbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  background: var(--panel);
-  padding: 0.75rem 1rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  margin-bottom: 1rem;
-  border: 1px solid var(--border);
+  gap: 1rem;
+  padding: 0.8rem 1.2rem;
+  background: rgba(37, 99, 235, 0.12);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+  margin: 0 auto 1.4rem;
+  max-width: 1100px;
 }
 
-.header h1 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--brand);
-}
-
-.nav-buttons {
+.brand {
   display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+}
+
+.brand .dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+}
+
+/* Navegación topbar */
+.nav {
+  display: flex;
+  justify-content: flex-end;
   gap: 0.5rem;
 }
 
 .nav-btn {
-  background: #fff;
-  border: 1px solid var(--border);
+  border: 0;
+  background: rgba(255, 255, 255, 0.9);
+  color: #1f2937;
+  padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  padding: 0.4rem 0.8rem;
   font-weight: 600;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-}
-.nav-btn:hover { background: #eef4ff; }
-.nav-btn.active {
-  background: var(--brand);
-  color: white;
-  border-color: var(--brand);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+  transition: background 0.15s ease, transform 0.05s ease, box-shadow 0.15s ease;
 }
 
-/* ===== CARD CONTENEDORA ===== */
-.card {
+.nav-btn:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.18);
+}
+
+.nav-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+}
+
+.nav-btn-active {
+  background: #1d4ed8;
+  color: #ffffff;
+}
+
+/* ===== CARD ===== */
+.ver-card {
   background: var(--panel);
   border-radius: 12px;
   border: 1px solid var(--border);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
   padding: 1.5rem;
   max-width: 1100px;
   margin: 0 auto;
 }
 
 .section-title {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 1rem;
 }
 
 /* ===== TABLA ===== */
-.table-container { overflow-x: auto; text-align: center; }
+.table-container {
+  overflow-x: auto;
+}
 
 .table {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-  text-align: center;
   border: 2px solid var(--border);
-  background: #fff;
-  margin: 0 auto;
+  background: #ffffff;
 }
 
 .table th,
@@ -98,30 +137,103 @@
   color: #1e3a8a;
   font-weight: 700;
   text-transform: uppercase;
+  font-size: 0.8rem;
 }
 
-.table tbody tr:nth-child(even) { background: #f9fafb; }
-.table tbody tr:hover { background: #eef4ff; transition: background 0.2s; }
+.table tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
 
-/* ===== MINIATURAS 20×20 (forzado) ===== */
-.foto-cell { text-align: center; }
+/* ===== FOTO PEQUEÑA ===== */
+.foto-cell {
+  text-align: center;
+}
 
 .img-thumb {
-  width: 20px !important;
-  height: 20px !important;
-  min-width: 20px !important;
-  min-height: 20px !important;
-  max-width: 20px !important;
-  max-height: 20px !important;
+  width: 150px !important;
+  height: 130px !important;
   object-fit: cover !important;
-  display: inline-block !important;
-  border-radius: 4px !important;
-  border: 1px solid var(--border) !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.18);
+  display: block;
   margin: 0 auto;
 }
 
-/* ===== CHIP ===== */
+/* ===== FILA DE ESTADO (debajo de cada reporte) ===== */
+.fila-estado td {
+  border-top: 0; /* une visualmente con la fila de arriba */
+  background: #f9fafb;
+}
+
+.estado-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.3rem;
+}
+
+/* pill con color según estado */
+.estado-pill {
+  display: inline-block;
+  padding: 0.18rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* colores que usas en ver.component.ts */
+.estado-recibido {
+  background-color: #e5e7eb;
+  color: #111827;
+}
+
+.estado-pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.estado-ejecucion {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.estado-finalizado {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+/* botones de cambio de estado (en horizontal) */
+.estado-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.estado-btn {
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  padding: 0.18rem 0.7rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease,
+    transform 0.05s ease;
+}
+
+.estado-btn:hover {
+  background: #edf2ff;
+  border-color: #a5b4fc;
+  transform: translateY(-1px);
+}
+
+.estado-btn:active {
+  transform: translateY(0);
+}
+
+/* ===== CHIP TIPO ===== */
 .chip {
   display: inline-block;
   padding: 0.15rem 0.5rem;
@@ -132,8 +244,14 @@
   color: #1e40af;
 }
 
-/* ===== OTROS ESTADOS ===== */
-.loading, .empty { text-align: center; color: #6b7280; padding: 1rem; }
+/* ===== ESTADOS AUX ===== */
+.loading,
+.empty {
+  text-align: center;
+  color: #6b7280;
+  padding: 1rem;
+}
+
 .error {
   background: #fee2e2;
   color: #b91c1c;
@@ -144,161 +262,78 @@
   margin-bottom: 1rem;
 }
 
-/* ===== RESPONSIVO ===== */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-  .table, .table thead, .table tbody, .table tr, .table td {
-    display: block; width: 100%;
+  .ver-page {
+    padding: 0.75rem;
   }
-  .table thead { display: none; }
+
+  .ver-appbar {
+    grid-template-columns: 1fr;
+    row-gap: 0.7rem;
+    border-radius: 18px;
+  }
+
+  .nav {
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+
+  .ver-card {
+    padding: 1rem;
+  }
+
+  .table,
+  .table thead,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table thead {
+    display: none;
+  }
 
   .table tr {
     background: #fff;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--border);
   }
+
   .table td {
     border: none;
     border-bottom: 1px solid var(--border);
     position: relative;
-    padding-left: calc(10ch + 1rem);
+    padding-left: calc(11ch + 1rem);
   }
+
   .table td::before {
     content: attr(data-label) ":";
-    position: absolute; left: 1rem; top: 0.7rem;
-    font-weight: 700; color: #6b7280;
+    position: absolute;
+    left: 1rem;
+    top: 0.7rem;
+    font-weight: 700;
+    color: #6b7280;
   }
 
-  .img-thumb {
-    width: 40px !important;
-    height: 40px !important;
-    min-width: 40px !important;
-    min-height: 40px !important;
-    max-width: 40px !important;
-    max-height: 40px !important;
+  .fila-estado td {
+    padding-left: 1rem; /* quita la etiqueta data-label en esta fila */
   }
-}
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem auto;
-  background: #fff;
-  border: 2px solid #9ca3af; /* gris medio más visible */
-  text-align: left;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
+  .fila-estado td::before {
+    content: "";
+  }
 
-.table th,
-.table td {
-  border: 1px solid #9ca3af; /* mismo tono visible */
-  padding: 0.6rem 0.8rem;
-  vertical-align: middle;
-}
-
-.table th {
-  background-color: #e0e7ff;
-  color: #1e3a8a;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.table tbody tr:nth-child(even) {
-  background: #f9fafb;
-}
-
-.table tbody tr:hover {
-  background: #eef4ff;
-  transition: background 0.2s;
-}
-
-.foto-cell {
-  text-align: center;
-}
-
-/* ✅ miniaturas pequeñas y con borde */
-.img-thumb {
-  width: 25px !important;
-  height: 25px !important;
-  object-fit: cover !important;
-  border: 2px solid #9ca3af !important; /* borde visible */
-  border-radius: 6px !important;
-  box-shadow: 0 0 3px rgba(0,0,0,0.2);
-  display: inline-block;
-}
-
-/* ===== ESTADO DEL REPORTE (fila debajo) ===== */
-
-.fila-estado {
-  background-color: #f9fafb;
-}
-
-.estado-botones {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.5rem 0.25rem;
-  flex-wrap: wrap;
-}
-
-/* Pill del estado */
-.estado {
-  padding: 0.25rem 0.8rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border: 1px solid #d1d5db;
-}
-
-/* Colores por estado */
-.estado-recibido {
-  background-color: #e5e7eb; /* gris claro */
-  color: #374151;
-}
-
-.estado-pendiente {
-  background-color: #fef3c7; /* amarillo claro */
-  color: #92400e;
-}
-
-.estado-ejecucion {
-  background-color: #d1fae5; /* verde claro */
-  color: #065f46;
-}
-
-.estado-finalizado {
-  background-color: #dbeafe; /* azul claro */
-  color: #1d4ed8;
-}
-
-/* Botones de acciones de estado */
-.botones-estado-acciones {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.botones-estado-acciones button {
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  border: 1px solid #d1d5db;
-  background-color: #ffffff;
-  font-size: 0.7rem;
-  cursor: pointer;
-  transition: background-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.botones-estado-acciones button:hover {
-  background-color: #eef2ff;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-/* Responsivo: apilar mejor la fila de estado en móviles */
-@media (max-width: 900px) {
-  .estado-botones {
+  .estado-row {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .estado-botones {
+    justify-content: flex-start;
   }
 }

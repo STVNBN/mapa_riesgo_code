@@ -1,14 +1,21 @@
-<div class="ver-container">
-  <header class="header">
-    <h1>📋 Reportes Urbanos</h1>
-    <nav class="nav-buttons">
-      <button routerLink="/" class="nav-btn">Inicio</button>
-      <button routerLink="/generar-reporte" class="nav-btn">GR</button>
-      <button routerLink="/ver-reportes" class="nav-btn active">VR</button>
-    </nav>
+<div class="ver-page">
+  <!-- TOPBAR estilo moderno -->
+  <header class="ver-appbar">
+    <div class="brand">
+      <span class="dot"></span>
+      <h1>Reportes Urbanos</h1>
+    </div>
+
+    <div class="nav">
+      <!-- Botón azul a la derecha -->
+      <button routerLink="/" class="nav-btn nav-btn-primary">
+        Ir a inicio
+      </button>
+    </div>
   </header>
 
-  <section class="card">
+
+  <section class="card ver-card">
     <h2 class="section-title">Lista de reportes registrados</h2>
 
     <div *ngIf="cargando" class="loading">Cargando reportes...</div>
@@ -24,61 +31,82 @@
             <th>Descripción</th>
             <th>Dirección</th>
             <th>Coordenadas</th>
-            <th>Foto / Estado</th>
+            <th>Foto</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let r of reportes">
-            <td data-label="ID">{{ r.id }}</td>
-            <td data-label="Teléfono">{{ r.telefono || '-' }}</td>
-            <td data-label="Tipo">
-              <span class="chip">{{ r.tipoDeReporte }}</span>
-            </td>
-            <td data-label="Descripción">{{ r.descripcion }}</td>
-            <td data-label="Dirección">{{ r.direccion }}</td>
-            <td data-label="Coordenadas">
-              <code>{{ r.latitud }}, {{ r.longitud }}</code>
-            </td>
+          <!-- un bloque (dos filas) por reporte -->
+          <ng-container *ngFor="let r of reportes">
+            <!-- Fila principal con datos y foto pequeña -->
+            <tr>
+              <td data-label="ID">{{ r.id }}</td>
+              <td data-label="Teléfono">{{ r.telefono || '-' }}</td>
+              <td data-label="Tipo">
+                <span class="chip">{{ r.tipoDeReporte }}</span>
+              </td>
+              <td data-label="Descripción">{{ r.descripcion }}</td>
+              <td data-label="Dirección">{{ r.direccion }}</td>
+              <td data-label="Coordenadas">
+                <code>{{ r.latitud }}, {{ r.longitud }}</code>
+              </td>
+              <td data-label="Foto" class="foto-cell">
+                <img
+                 *ngIf="r.id"
+                  [src]="'http://localhost:8080/api/reportes/' + r.id + '/foto'"
+                  alt="Foto del reporte"
+                  width="150"
+                  height="130"
+                  class="img-thumb"
+                  (error)="handleImgError($event)"
+                />
 
-            <!-- Columna de foto + estado + botones -->
-            <td data-label="Foto" class="foto-cell">
-              <!-- Foto -->
-              <img
-                *ngIf="r.id"
-                [src]="'http://localhost:8080/api/reportes/' + r.id + '/foto'"
-                alt="Foto del reporte"
-                width="150"
-                height="150"
-                class="img-thumb"
-                (error)="handleImgError($event)"
-              />
-              <span *ngIf="!r.id" class="muted">—</span>
+              </td>
+            </tr>
 
-              <!-- Estado + botones -->
-              <div class="estado-botones">
-                <!-- pill del estado -->
-                <span [ngClass]="estadoClase(r.estado)">
-                  {{ etiquetaEstado(r.estado) }}
-                </span>
+            <!-- Fila secundaria SOLO para estado y botones (debajo del reporte) -->
+            <tr class="fila-estado">
+              <td colspan="7">
+                <div class="estado-row">
+                  <!-- pill del estado actual -->
+                  <span class="estado-pill" [ngClass]="estadoClase(r.estado)">
+                    {{ etiquetaEstado(r.estado) }}
+                  </span>
 
-                <!-- botones para cambiar estado -->
-                <div class="botones-estado-acciones">
-                  <button type="button" (click)="cambiarEstado(r, 'RECIBIDO')">
-                    Recibido
-                  </button>
-                  <button type="button" (click)="cambiarEstado(r, 'PENDIENTE')">
-                    Pendiente de autorización
-                  </button>
-                  <button type="button" (click)="cambiarEstado(r, 'EJECUCION')">
-                    En ejecución
-                  </button>
-                  <button type="button" (click)="cambiarEstado(r, 'FINALIZADO')">
-                    Finalizado
-                  </button>
+                  <!-- botones en HORIZONTAL -->
+                  <div class="estado-botones">
+                    <button
+                      class="estado-btn"
+                      type="button"
+                      (click)="cambiarEstado(r, 'RECIBIDO')"
+                    >
+                      Recibido
+                    </button>
+                    <button
+                      class="estado-btn"
+                      type="button"
+                      (click)="cambiarEstado(r, 'PENDIENTE')"
+                    >
+                      Pendiente de autorización
+                    </button>
+                    <button
+                      class="estado-btn"
+                      type="button"
+                      (click)="cambiarEstado(r, 'EJECUCION')"
+                    >
+                      En ejecución
+                    </button>
+                    <button
+                      class="estado-btn"
+                      type="button"
+                      (click)="cambiarEstado(r, 'FINALIZADO')"
+                    >
+                      Finalizado
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </td>
-          </tr>
+              </td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
 
@@ -88,4 +116,3 @@
     </div>
   </section>
 </div>
-
