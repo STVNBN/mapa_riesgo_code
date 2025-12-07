@@ -27,7 +27,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();
-        cfg.setAllowedOrigins(List.of("http://localhost:4200"));
+        cfg.setAllowedOrigins(List.of("http://localhost:4200",
+        "https://mapa-riesgo-code-1.onrender.com"));
         cfg.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS", "PATCH"));
         cfg.setAllowedHeaders(List.of("Authorization","Content-Type"));
         cfg.setExposedHeaders(List.of("Authorization"));
