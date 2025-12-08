@@ -52,7 +52,7 @@
               <td data-label="Foto" class="foto-cell">
                 <img
                  *ngIf="r.id"
-                  [src]="'http://localhost:8080/api/reportes/' + r.id + '/foto'"
+                  [src]="apiBaseUrl + '/api/reportes/' + r.id + '/foto'"
                   alt="Foto del reporte"
                   width="150"
                   height="130"
