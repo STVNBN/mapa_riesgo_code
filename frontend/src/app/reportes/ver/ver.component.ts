@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReportesService } from '../reportes.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-ver',
@@ -15,6 +16,8 @@ export class VerComponent implements OnInit {
   reportes: any[] = [];
   cargando = false;
   error: string | null = null;
+
+  apiBaseUrl = environment.NG_APP_API_URL;
 
   constructor(private api: ReportesService, private router: Router) {}
 
