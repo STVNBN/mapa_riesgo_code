@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReportesService } from '../reportes.service';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-ver',
